@@ -18,6 +18,10 @@ playerOne.prototype.clickRoll1 = function() {
   }
 }
 
+playerOne.prototype.clickHold1 = function() {
+  this.totalScore += this.holdScore;
+}
+
 function playerTwo () {
   this.totalScore = 0;
   this.holdScore = 0;
@@ -39,7 +43,30 @@ playerTwo.prototype.clickRoll2 = function() {
 
 //User Interface Logic
 $(document).ready(function(){
-  
+
+var newPlayerOne = new playerOne();
+
+debugger;
+  $("button#playerOneRoll").click(function(event){
+    event.preventDefault();
+
+    //Shows user random roll
+    newPlayerOne.roll = diceRoll();
+    $("#playerOneCurrent").text(newPlayerOne.roll);
+
+    //Shows user turn's total
+    newPlayerOne.clickRoll1();
+    $("#playerOneRound").text(newPlayerOne.holdScore);
+
+
+  });
+
+$("button#playerOneHold").click(function(event){
+  //Shows user's total score
+  newPlayerOne.clickHold1();
+  $("#playerOneTotal").text(newPlayerOne.totalScore);
+
+})
 
 
 
